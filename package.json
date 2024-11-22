@@ -1,0 +1,19 @@
+{
+  "name": "interfaz_de_api_drive",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.1",
+    "googleapis": "^144.0.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.7",
+    "qrcode": "^1.5.4"
+  }
+}
