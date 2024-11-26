@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         qrWindow.document.write('<html><head><title>Códigos QR de Archivos</title>');
         qrWindow.document.write('<style>body { font-family: Arial; text-align: center; }</style>');
         qrWindow.document.write('</head><body>');
-        qrWindow.document.write('<h2>Códigos QR Generados</h2>');
+        qrWindow.document.write('<h2>CNC</h2>');
 
         data.qrCodes.forEach(qrCode => {
             qrWindow.document.write(`
