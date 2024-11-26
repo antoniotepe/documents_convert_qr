@@ -2,10 +2,10 @@ const { google } = require('googleapis');
 const path = require('path');
 const fs = require('fs');
 
-const CLIENT_ID = '29507336525-p5q2m5eusaatfvvaafgpnd562vu8q4uk.apps.googleusercontent.com';
-const CLIENT_SECRET = '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';
+const CLIENT_ID = '376119626792-suf3b3mf2r848osuqdtpg5370dqgali4.apps.googleusercontent.com';
+const CLIENT_SECRET = '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';
 const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-const REFRESH_TOKEN = '1//041bCNBthED1bCgYIARAAGAQSNwF-L9IrVrQFVhMPlVyZcnbveKKHY02OonnDlvFYOs5l7hBbL57eJWeLw8skeHWHDml8VFEGJac';
+const REFRESH_TOKEN = '1//04XMxmikbbc9pCgYIARAAGAQSNwF-L9IruTp3SNhBvwjwGuvkQGfyNBbCIfDzFUHoZnipfm1L7ViGDVF4Mzsx4x7uVE-6VAnKsHw';
 const PARENT_FOLDER_ID = '1Y47aj7AMxsQ37rH-Q7jGPkBxVJu83jbw';
 
 class GoogleDriveUploader {
