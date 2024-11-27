@@ -58,7 +58,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
                 return {
                     filename: result.filename,
                     webViewQR,
-                    webContentQR
+                    webContentQR,
+                    pdfFileData: result.pdfFileData
                 };
             }
             return null;

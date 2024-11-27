@@ -35,6 +35,90 @@ class GoogleDriveUploader {
         return mimeTypes[ext] || 'application/octet-stream';
     }
 
+    async convertToPDF(fileId) {
+        try {
+            const result = await this.drive.files.export({
+                fileId: fileId,
+                mimeType: 'application/pdf'
+            });
+
+            // Create PDF file in the same parent folder
+            const pdfFile = await this.drive.files.create({
+                requestBody: {
+                    name: `${result.data.name}.pdf`,
+                    parents: [PARENT_FOLDER_ID],
+                    mimeType: 'application/pdf'
+                },
+                media: {
+                    mimeType: 'application/pdf',
+                    body: result.data
+                }
+            });
+
+            console.log(`Archivo convertido a PDF: ${pdfFile.data.name}`);
+            return pdfFile.data;    
+        } catch (error) {
+            console.log('Error convirtiendo a PDF: ', error.message);
+            return null;
+        }
+    }
+
+    async processFiles(folderPath) {
+        try {
+            // Leer archivos de la carpeta
+            const files = fs.readdirSync(folderPath)
+                .filter(file => {
+                    const ext = path.extname(file).toLowerCase();
+                    return ['.pdf', '.docx', '.doc'].includes(ext);
+                });
+
+            const uploadResults = [];
+
+            for (const file of files) {
+                const fileId = await this.uploadFile(file, folderPath);
+                if (fileId) {
+                    // If file is not already a PDF, convert it
+                    const ext = path.extname(file).toLowerCase();
+                    let pdfFileData = null;
+                    if (ext !== '.pdf') {
+                        pdfFileData = await this.convertToPdf(fileId);
+                    }
+
+                    const publicUrls = await this.generatePublicUrl(fileId);
+                    
+                    uploadResults.push({
+                        filename: file,
+                        fileId: fileId,
+                        publicUrls: publicUrls,
+                        pdfFileData: pdfFileData
+                    });
+                }
+            }
+
+            console.log('\n--- Resumen de Subida ---');
+            console.log(`Total de archivos procesados: ${uploadResults.length}`);
+            console.log('Detalles de archivos:');
+            uploadResults.forEach(result => {
+                console.log(`- ${result.filename}`);
+                console.log(`  ID de archivo: ${result.fileId}`);
+                if (result.publicUrls) {
+                    console.log(`  Link de Vista Web: ${result.publicUrls.webViewLink}`);
+                    console.log(`  Link de Contenido Web: ${result.publicUrls.webContentLink}`);
+                }
+                if (result.pdfFileData) {
+                    console.log(`  Archivo PDF convertido: ${result.pdfFileData.name}`);
+                }
+            });
+
+            return uploadResults;
+
+        } catch (error) {
+            console.error('Error procesando archivos:', error.message);
+            return [];
+        }
+    }
+    
+
     // Subir un solo archivo
     async uploadFile(filename, folderPath) {
         try {
