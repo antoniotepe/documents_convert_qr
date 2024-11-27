@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const file = this.files[0];
         if (file) {
             fileLabel.textContent = file.name;
+            uploadFile(file);
         }
     });
 
@@ -26,11 +27,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const allowedTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/msword'];
         
         if (!allowedTypes.includes(file.type)) {
-            alert('Solo se permiten archivos PDF, DOCX y DOC');
+            Swal.fire({
+                icon: 'error',
+                title: 'Archivo no válido',
+                text: 'Solo se permiten archivos PDF, DOCX y DOC',
+                confirmButtonColor: '#3085d6'
+            });
             return;
         }
 
-        loadingOverlay.style.display = 'flex';
+        // Mostrar loading con SweetAlert
+        Swal.fire({
+            title: 'Subiendo archivo...',
+            html: 'Por favor, espere',
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
 
         const formData = new FormData();
         formData.append('file', file);
@@ -41,7 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => response.json())
         .then(data => {
-            loadingOverlay.style.display = 'none';
+            // Ocultar loading
+            Swal.close();
 
             // Crear ventana emergente con códigos QR
             const qrWindow = window.open('', 'QR Codes', 'width=600,height=600');
@@ -75,21 +89,29 @@ document.addEventListener('DOMContentLoaded', () => {
             
             qrWindow.document.close();
 
-            alert('Archivo subido exitosamente');
+            // Mostrar alerta de éxito
+            Swal.fire({
+                icon: 'success',
+                title: '¡Archivo subido!',
+                text: 'El archivo se ha subido correctamente',
+                confirmButtonColor: '#3085d6'
+            });
+
             console.log(data);
+            
+            // Reset file input
+            fileInput.value = '';
+            fileLabel.textContent = 'No se ha seleccionado archivo';
         })
         .catch(error => {
-            loadingOverlay.style.display = 'none';
+            // Mostrar error con SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ocurrió un error al subir el archivo',
+                confirmButtonColor: '#d33'
+            });
             console.error('Error:', error);
-            alert('Error al subir el archivo');
         });
     }
-
-    // Añadir evento de cambio al input de archivo
-    fileInput.addEventListener('change', function() {
-        const file = this.files[0];
-        if (file) {
-            uploadFile(file);
-        }
-    });
 });
