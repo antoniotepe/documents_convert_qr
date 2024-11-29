@@ -2,11 +2,11 @@ const { google } = require('googleapis');
 const path = require('path');
 const fs = require('fs');
 
-const CLIENT_ID = '376119626792-suf3b3mf2r848osuqdtpg5370dqgali4.apps.googleusercontent.com';
-const CLIENT_SECRET = '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';
+const CLIENT_ID = '308388467905-kk4ekl5mijghhnapq7g2qlpcvut5piel.apps.googleusercontent.com';
+const CLIENT_SECRET = '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';
 const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-const REFRESH_TOKEN = '1//04XMxmikbbc9pCgYIARAAGAQSNwF-L9IruTp3SNhBvwjwGuvkQGfyNBbCIfDzFUHoZnipfm1L7ViGDVF4Mzsx4x7uVE-6VAnKsHw';
-const PARENT_FOLDER_ID = '1Y47aj7AMxsQ37rH-Q7jGPkBxVJu83jbw';
+const REFRESH_TOKEN = '1//04YuxhxLbHXiRCgYIARAAGAQSNwF-L9IrzS4vyPFSvPlZEzpjpZjE3KaAKMnvZlLWEp1dJUKKpIxXNiBWZQgWeNsm8wSk-h8gK6Q';
+const PARENT_FOLDER_ID = '1HIJAYqzhWVHhucOqJ5Dsw2j_sL-88K-k';
 
 class GoogleDriveUploader {
     constructor() {
