@@ -8,6 +8,11 @@ const GoogleDriveUploader = require('./src/googleDriveUploader');
 const app = express();
 const PORT = 3000;
 
+// Asegúrate de que coincida con el nombre real de tu archivo
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html')); // o 'login-page.html' si es ese el nombre exacto
+});
+
 // Configuración de multer para subir archivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -36,6 +41,7 @@ const upload = multer({
 
 // Servir archivos estáticos
 app.use(express.static('public'));
+
 
 // Endpoint de subida de archivos
 

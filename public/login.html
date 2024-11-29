@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .login-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Ingreso</h2>
+        <input type="password" id="passwordInput" placeholder="Ingrese la clave">
+        <button onclick="login()">Ingresar</button>
+    </div>
+
+    <script>
+        function login() {
+            const passwordInput = document.getElementById('passwordInput');
+            const password = passwordInput.value;
+
+            // Check if the password is correct
+            if (password === '2828') {
+                // Redirect to index.html if password is correct
+                window.location.href = 'index.html';
+            } else {
+                // Show error message
+                alert('Clave incorrecta. Intente nuevamente.');
+                passwordInput.value = ''; // Clear the input
+            }
+        }
+
+        // Allow login by pressing Enter key
+        document.getElementById('passwordInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                login();
+            }
+        });
+    </script>
+</body>
+</html>
